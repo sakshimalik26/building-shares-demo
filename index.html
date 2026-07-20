@@ -6,13 +6,13 @@
     <title>Share Ownership Simulator</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex items-center justify-center p-4">
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex items-center justify-center p-4">
 
-    <div class="w-full max-w-4xl bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+    <div class="w-full max-w-4xl bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
         
         <!-- Header -->
         <div class="bg-slate-900 p-6 text-white text-center">
-            <h1 class="text-xl font-bold tracking-tight">Share Ownership Simulator</h1>
+            <h1 class="text-2xl font-bold tracking-tight">Share Ownership Simulator</h1>
             <p class="text-xs text-slate-400 mt-1">An interactive visual tool for understanding equity corporate frameworks.</p>
         </div>
 
@@ -49,21 +49,23 @@
                 <div class="space-y-5">
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-400 tracking-wider mb-2">Step 1: Select Share Framework Class</label>
-                        <div class="space-y-2">
-                            <label class="border-2 border-blue-600 bg-white p-3 rounded-lg flex items-center justify-between cursor-pointer transition" id="labelOrdinary">
+                        <div class="space-y-3">
+                            <!-- Ordinary Share Option Card -->
+                            <label class="border-2 border-blue-600 bg-blue-50/30 p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-blue-50/50" id="labelOrdinary">
                                 <div class="pr-2">
-                                    <span class="block font-bold text-sm text-slate-900">Ordinary Share</span>
-                                    <span class="text-[11px] text-slate-500">Variable dividend payouts + Active voting power</span>
+                                    <span class="block font-black text-base text-slate-900">Ordinary Share</span>
+                                    <span class="text-[11px] text-slate-600 font-medium">Variable dividend payouts + Active voting power</span>
                                 </div>
-                                <input type="radio" name="shareType" value="ordinary" checked class="accent-blue-600 h-4 w-4 shrink-0">
+                                <input type="radio" name="shareType" value="ordinary" checked class="accent-blue-600 h-5 w-5 shrink-0">
                             </label>
                             
-                            <label class="border border-slate-200 bg-white p-3 rounded-lg flex items-center justify-between cursor-pointer transition" id="labelPreference">
+                            <!-- Preference Share Option Card (Enhanced Visibility & Color) -->
+                            <label class="border-2 border-amber-500 bg-amber-50/40 p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-amber-50/70" id="labelPreference">
                                 <div class="pr-2">
-                                    <span class="block font-bold text-sm text-slate-900">Preference Share</span>
-                                    <span class="text-[11px] text-slate-500">Fixed 10% dividend payout + Payout priority rank</span>
+                                    <span class="block font-black text-base text-amber-900">⭐ Preference Share</span>
+                                    <span class="text-[11px] text-amber-800 font-semibold">Fixed 10% dividend payout + Payout priority rank</span>
                                 </div>
-                                <input type="radio" name="shareType" value="preference" class="accent-blue-600 h-4 w-4 shrink-0">
+                                <input type="radio" name="shareType" value="preference" class="accent-amber-600 h-5 w-5 shrink-0">
                             </label>
                         </div>
                     </div>
@@ -74,7 +76,7 @@
                     </div>
                 </div>
 
-                <!-- Right: Choose Quantity (Double-Input Configuration) -->
+                <!-- Right: Choose Quantity -->
                 <div class="space-y-4 bg-slate-50/50 p-4 rounded-lg border border-slate-200 flex flex-col justify-center">
                     <label class="block text-xs font-bold uppercase text-slate-400 tracking-wider mb-1">Step 3: Specify Share Units to Buy</label>
                     
@@ -97,8 +99,8 @@
         </div>
 
 
-        <!-- SCREEN 2: THE OUTPUT DASHBOARD VIEW (Hidden by default until Buy clicked) -->
-        <div id="resultsView" class="hidden p-8 space-y-8 animate-fadeIn">
+        <!-- SCREEN 2: THE OUTPUT DASHBOARD VIEW -->
+        <div id="resultsView" class="hidden p-8 space-y-8">
             
             <!-- Context Control Navigation Bar -->
             <div class="flex flex-col sm:flex-row justify-between items-center bg-slate-50 border border-slate-200 p-3 rounded-lg gap-3 text-sm">
@@ -115,49 +117,89 @@
                 <div class="bg-slate-50 border border-slate-200 p-4 rounded-lg text-center">
                     <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Your Capital Cost</span>
                     <span id="costDisplay" class="text-2xl font-black text-slate-900 block mt-1">0 Rs</span>
+                    <span class="text-[10px] text-slate-400 block mt-0.5 font-mono">Shares × 10 Rs</span>
                 </div>
                 <div class="bg-slate-50 border border-slate-200 p-4 rounded-lg text-center">
                     <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Your Ownership Status</span>
                     <span id="ownershipDisplay" class="text-2xl font-black text-slate-900 block mt-1">0%</span>
+                    <span class="text-[10px] text-slate-400 block mt-0.5 font-mono">(Shares Bought ÷ 1,000 Total Shares) × 100</span>
                 </div>
                 <div class="bg-slate-50 border border-slate-200 p-4 rounded-lg text-center">
                     <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Your Earned Dividend</span>
                     <span id="dividendValueDisplay" class="text-2xl font-black text-emerald-600 block mt-1">0 Rs</span>
-                    <span id="dividendFormula" class="text-[10px] text-slate-400 block mt-0.5 font-mono">Formula label</span>
+                    <span id="dividendFormula" class="text-[10px] text-slate-400 block mt-0.5 font-mono font-semibold">Formula label</span>
                 </div>
             </div>
 
             <!-- Main Split Visual Display Area -->
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center border-t border-slate-200 pt-6">
                 
-                <!-- Left Sub-Side: Large Blue Building Ownership Graphic -->
-                <div class="md:col-span-4 flex flex-col items-center border-b md:border-b-0 md:border-r border-slate-100 pb-6 md:pb-0 md:pr-6">
+                <!-- Left Sub-Side: Colorful Vector Building Ownership Graphic -->
+                <div class="md:col-span-5 flex flex-col items-center border-b md:border-b-0 md:border-r border-slate-100 pb-6 md:pb-0 md:pr-6">
                     <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Asset Allocation View</span>
                     
-                    <!-- Clean Building Outer Wall Shape -->
-                    <div class="w-28 h-48 bg-slate-100 border-2 border-slate-800 rounded-t-lg relative overflow-hidden shadow-inner">
-                        <!-- Restored Blue Dynamic Ownership Fill Layer -->
-                        <div id="buildingFill" class="absolute bottom-0 left-0 right-0 bg-blue-600 transition-all duration-700 cubic-bezier(0.4, 0, 0.2, 1)" style="height: 0%;"></div>
+                    <!-- Colorful HTML Vector Building Shape Container -->
+                    <div class="w-32 flex flex-col items-center relative">
+                        <!-- Red Triangular Roof Section -->
+                        <div class="w-0 h-0 border-l-[68px] border-l-transparent border-r-[68px] border-r-transparent border-b-[40px] border-b-rose-500 drop-shadow-sm"></div>
+                        
+                        <!-- Main Building Frame Body (Bright Warm Amber Face) -->
+                        <div class="w-[120px] h-60 bg-amber-300 border-[3px] border-slate-800 relative shadow-md overflow-hidden flex flex-col justify-between p-3 z-10">
+                            
+                            <!-- 4 Clear Grid Window Rows -->
+                            <div class="grid grid-cols-3 gap-2 w-full z-20">
+                                <div class="h-6 bg-sky-200 border border-slate-700 rounded-sm shadow-sm"></div>
+                                <div class="h-6 bg-sky-200 border border-slate-700 rounded-sm shadow-sm"></div>
+                                <div class="h-6 bg-sky-200 border border-slate-700 rounded-sm shadow-sm"></div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2 w-full z-20">
+                                <div class="h-6 bg-sky-200 border border-slate-700 rounded-sm shadow-sm"></div>
+                                <div class="h-6 bg-sky-200 border border-slate-700 rounded-sm shadow-sm"></div>
+                                <div class="h-6 bg-sky-200 border border-slate-700 rounded-sm shadow-sm"></div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2 w-full z-20">
+                                <div class="h-6 bg-sky-200 border border-slate-700 rounded-sm shadow-sm"></div>
+                                <div class="h-6 bg-sky-200 border border-slate-700 rounded-sm shadow-sm"></div>
+                                <div class="h-6 bg-sky-200 border border-slate-700 rounded-sm shadow-sm"></div>
+                            </div>
+
+                            <!-- Ground Floor Entryway with Brown Double Doors -->
+                            <div class="flex justify-between items-end w-full mt-auto z-20">
+                                <div class="w-6 h-6 bg-sky-200 border border-slate-700 rounded-sm shadow-sm"></div>
+                                <div class="w-10 h-12 bg-amber-800 border-t-2 border-x-2 border-slate-800 flex rounded-t-sm shadow-inner">
+                                    <div class="w-1/2 h-full border-r border-slate-900/40 relative">
+                                        <div class="absolute right-1 top-5 w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                    </div>
+                                    <div class="w-1/2 h-full relative">
+                                        <div class="absolute left-1 top-5 w-1 h-1 bg-yellow-400 rounded-full"></div>
+                                    </div>
+                                </div>
+                                <div class="w-6 h-6 bg-sky-200 border border-slate-700 rounded-sm shadow-sm"></div>
+                            </div>
+
+                            <!-- Restored Dynamic Ownership Fill Overlay Layer (Vivid Royal Blue) -->
+                            <div id="buildingFill" class="absolute bottom-0 left-0 right-0 bg-blue-600 opacity-85 transition-all duration-700 ease-out z-0" style="height: 0%;"></div>
+                        </div>
                     </div>
                     
-                    <span id="buildingLabel" class="text-xs font-bold mt-3 text-blue-600">0.0% Owned</span>
+                    <span id="buildingLabel" class="text-xs font-black mt-4 text-blue-600 bg-blue-50 px-2 py-1 rounded border border-blue-200 shadow-sm">0.0% Ownership Volume</span>
                 </div>
 
-                <!-- Right Sub-Side: Proportional Balance Sheets & Legal Certificate -->
-                <div class="md:col-span-8 space-y-6">
+                <!-- Right Sub-Side: Simplified Balance Sheet Items & Legal Certificate -->
+                <div class="md:col-span-7 space-y-6">
                     
-                    <!-- Proportional Claims breakdown grids -->
+                    <!-- Proportional Claims breakdown grids (Simplified Headings) -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-slate-50 p-3 rounded border border-slate-200">
-                            <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wide">Your Asset Backing</span>
-                            <span id="assetShare" class="text-lg font-bold text-slate-900">0 Rs</span>
-                            <span class="block text-[9px] text-slate-400 mt-0.5 font-mono">Value Tier: Ownership % × 12,000 Rs</span>
+                        <div class="bg-slate-50 p-4 rounded border-2 border-slate-200 shadow-sm">
+                            <span class="block text-xs font-bold text-slate-400 uppercase tracking-wide">YOU OWN</span>
+                            <span id="assetShare" class="text-xl font-black text-slate-900 block mt-1">0 Rs</span>
+                            <span class="block text-[10px] text-slate-400 mt-1 font-mono">Value: Ownership % × 12,000 Rs</span>
                         </div>
                         
-                        <div class="bg-slate-50 p-3 rounded border border-slate-200">
-                            <span class="block text-[10px] font-bold text-slate-400 tracking-wide uppercase">Your Liability Weight</span>
-                            <span id="liabilityShare" class="text-lg font-bold text-slate-900">0 Rs</span>
-                            <span class="block text-[9px] text-slate-400 mt-0.5 font-mono">Accountability: Ownership % × 2,000 Rs</span>
+                        <div class="bg-slate-50 p-4 rounded border-2 border-slate-200 shadow-sm">
+                            <span class="block text-xs font-bold text-slate-400 tracking-wide uppercase">YOUR LIABILITY</span>
+                            <span id="liabilityShare" class="text-xl font-black text-slate-900 block mt-1">0 Rs</span>
+                            <span class="block text-[10px] text-slate-400 mt-1 font-mono">Weight: Ownership % × 2,000 Rs</span>
                         </div>
                     </div>
 
@@ -174,12 +216,11 @@
                 </div>
             </div>
 
-            <!-- Plain English Translation Section -->
-            <div class="bg-slate-900 text-white rounded-lg p-5 space-y-3 text-xs">
+            <!-- Simplified Plain English Translation Section -->
+            <div class="bg-slate-900 text-white rounded-lg p-5 space-y-3 text-xs leading-relaxed shadow-md">
                 <h3 class="font-bold uppercase tracking-wider text-slate-400 text-[10px]">Plain English Translation</h3>
-                <p>📁 **Corporate Registry Class:** You are registered under the active <span id="summaryCertName" class="font-bold text-blue-400">Ordinary</span> asset tier framework.</p>
-                <p>🗳️ **General Governance Voting Influence:** You command an allocation footprint of exactly <span id="summaryVotingText" class="font-bold text-blue-400">0% Voting Power</span>.</p>
-                <p>🏛️ **Liquidation & Exit Asset Priority Rights:** Allocation balances are distributed strictly relative to company tier weight positions. In the event of bankruptcy, liquidation, or project closure, the following execution protocols apply:</p>
+                <p>📁 **Corporate Registry Class:** You are registered under the active <span id="summaryCertName" class="font-bold text-blue-400">Ordinary</span> framework class.</p>
+                <p>🗳️ **Voting Power:** You have <span id="summaryVotingText" class="font-bold text-blue-400">0%</span> voting rights <span id="votingBracketText" class="text-slate-400 font-medium">(Matches your ownership exactly)</span>.</p>
                 <div id="summaryPriorityText" class="p-3 rounded text-slate-300 font-medium bg-slate-800 border border-slate-700">Priority description box.</div>
             </div>
 
@@ -219,6 +260,7 @@
         const certOwnershipStatement = document.getElementById('certOwnershipStatement');
         const summaryCertName = document.getElementById('summaryCertName');
         const summaryVotingText = document.getElementById('summaryVotingText');
+        const votingBracketText = document.getElementById('votingBracketText');
         const summaryPriorityText = document.getElementById('summaryPriorityText');
 
         // Core Accounting Constants
@@ -243,11 +285,11 @@
         document.querySelectorAll('input[name="shareType"]').forEach(radio => {
             radio.addEventListener('change', () => {
                 if(radio.value === 'ordinary') {
-                    radOrdinary.className = "border-2 border-blue-600 bg-white p-3 rounded-lg flex items-center justify-between cursor-pointer transition";
-                    radPreference.className = "border border-slate-200 bg-white p-3 rounded-lg flex items-center justify-between cursor-pointer transition";
+                    radOrdinary.className = "border-2 border-blue-600 bg-blue-50/30 p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-blue-50/50";
+                    radPreference.className = "border-2 border-amber-500/20 bg-white p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-amber-50/30";
                 } else {
-                    radPreference.className = "border-2 border-blue-600 bg-white p-3 rounded-lg flex items-center justify-between cursor-pointer transition";
-                    radOrdinary.className = "border border-slate-200 bg-white p-3 rounded-lg flex items-center justify-between cursor-pointer transition";
+                    radPreference.className = "border-2 border-amber-500 bg-amber-50/40 p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-amber-50/70";
+                    radOrdinary.className = "border-2 border-blue-600/20 bg-white p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-blue-50/30";
                 }
             });
         });
@@ -265,7 +307,7 @@
             const profitValue = parseFloat(profitInput.value) || 0;
             
             if (userShares <= 0) {
-                alert("Please enter a share amount greater than 0 to view the simulator results.");
+                alert("Please enter a share amount greater than 0 to view the simulator dashboard.");
                 return;
             }
 
@@ -281,9 +323,9 @@
             assetShare.textContent = userAssetShare.toLocaleString('en-IN') + ' Rs';
             liabilityShare.textContent = userLiabilityShare.toLocaleString('en-IN') + ' Rs';
 
-            // Configure Blue Building Graphic Fill
+            // Configure Blue Building Graphic Fill Height
             buildingFill.style.height = ownershipPercentage + '%';
-            buildingLabel.textContent = `${ownershipPercentage.toFixed(1)}% Ownership Fill`;
+            buildingLabel.textContent = `${ownershipPercentage.toFixed(1)}% Owned`;
 
             certShares.textContent = userShares.toLocaleString('en-IN');
 
@@ -297,9 +339,10 @@
                 certOwnershipStatement.textContent = "General Voting Token Allocation Enabled.";
                 
                 summaryCertName.textContent = "Ordinary Equity Framework Class";
-                summaryVotingText.textContent = `${ownershipPercentage.toFixed(1)}% (Equal to your ownership percentage)`;
+                summaryVotingText.textContent = `${ownershipPercentage.toFixed(1)}%`;
+                votingBracketText.textContent = "(Matches your ownership exactly)";
                 
-                summaryPriorityText.textContent = "⚠️ Winding Up Protocol (Residual Status): Paid Last. As an ordinary shareholder, you own the business residuals. If the corporation goes bankrupt or closes, you receive asset liquidations only after all external debt liabilities and preference shareholders are completely paid off first.";
+                summaryPriorityText.textContent = "⚠️ Winding Up Protocol (Residual Status): Paid Last. As an ordinary shareholder, you own the business residuals. If the corporation goes bankrupt or closes, you receive remaining asset payouts only after all external debt liabilities and preference shareholders are completely paid off first.";
 
             } else if (type === 'preference') {
                 const expectedPreferenceDiv = totalCost * 0.10;
@@ -310,7 +353,8 @@
                 certOwnershipStatement.textContent = "10% Fixed Dividend Priority Rank Enabled.";
                 
                 summaryCertName.textContent = "Preference Equity Framework Class";
-                summaryVotingText.textContent = "0% (Preference shares carry no voting tokens inside standard operational voting processes)";
+                summaryVotingText.textContent = "0%";
+                votingBracketText.textContent = "(Preference shares hold no general voting tokens)";
                 
                 summaryPriorityText.textContent = "🛡️ Winding Up Protocol (Senior Priority Status): Senior Payout Rank. If the company closes down or goes into liquidation, preference shareholders are legally protected to get their capital asset settlement first, strictly ahead of the ordinary shareholders.";
             }
