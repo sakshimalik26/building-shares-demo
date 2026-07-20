@@ -12,46 +12,84 @@
         <!-- Header Section -->
         <div class="bg-blue-600 p-6 text-white text-center">
             <h1 class="text-3xl font-bold">Understanding Shares & Ownership</h1>
-            <p class="mt-2 text-blue-100 text-lg font-medium">Concept: Everything you receive is strictly in proportion to the percentage of the company you own.</p>
+            <p class="mt-2 text-blue-100 text-lg font-medium">Concept: Everything you receive is strictly determined by your share type and your ownership proportion.</p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
-            <!-- Left Column: Controls, Profile & Core Math -->
+            <!-- Left Column: Inputs & Math Base -->
             <div class="space-y-6">
                 <!-- Company Profile Card -->
                 <div class="bg-blue-50 p-5 rounded-xl border border-blue-200 shadow-sm">
                     <h2 class="font-bold text-blue-900 text-xl mb-3">Company Profile (The Building Project)</h2>
-                    <div class="grid grid-cols-2 gap-3 text-sm text-gray-700">
-                        <div>Total Assets (What it owns): <strong class="text-green-700">12,000 Rs</strong></div>
-                        <div>Total Liabilities (What it owes): <strong class="text-red-700">2,000 Rs</strong></div>
-                        <div class="col-span-2 pt-2 border-t border-blue-200 mt-1">
-                            <span class="font-semibold text-gray-900">Net Capital Needed:</span> 10,000 Rs <span class="text-xs text-gray-500">(Assets 12,000 - Liabilities 2,000)</span>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-700">
+                        <div class="bg-white p-2 rounded border border-blue-100">
+                            <span class="block font-semibold text-green-700">Total Assets (What it Owns):</span>
+                            <span class="text-lg font-bold">12,000 Rs</span>
+                            <span class="block text-xs text-gray-500">(Land value + Building structures)</span>
                         </div>
-                        <div>Total Shares Issued: <strong>1,000 shares</strong></div>
-                        <div>Price per Share: <strong class="text-blue-700">10 Rs</strong> <span class="text-xs text-gray-500">(10,000 Rs ÷ 1,000)</span></div>
+                        <div class="bg-white p-2 rounded border border-blue-100">
+                            <span class="block font-semibold text-red-700">Total Liabilities (What it Owes):</span>
+                            <span class="text-lg font-bold">2,000 Rs</span>
+                            <span class="block text-xs text-gray-500">(Bank Construction Loan)</span>
+                        </div>
+                        <div class="col-span-1 sm:col-span-2 pt-2 border-t border-blue-200 text-xs text-gray-600">
+                            <strong>Net Capital Base Required:</strong> 10,000 Rs (Calculated as: 12,000 Rs Assets − 2,000 Rs Liabilities) <br>
+                            <strong>Total Issued Shares Available:</strong> 1,000 shares | <strong>Base Price per Share:</strong> 10 Rs (10,000 Rs ÷ 1,000)
+                        </div>
                     </div>
                 </div>
 
-                <!-- Slider & Interactive Trigger -->
-                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <label for="shareSlider" class="block font-bold text-gray-800 text-lg mb-2">
-                        Step 1: Choose how many shares to buy
-                    </label>
-                    <div class="flex items-center space-x-4 mb-4">
-                        <input type="range" id="shareSlider" min="0" max="1000" value="0" class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
-                        <span id="sliderPreview" class="text-2xl font-black text-gray-500 w-28 text-right">0</span>
+                <!-- Interactive Step Container -->
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm space-y-5">
+                    <!-- Step 1: Select Type -->
+                    <div>
+                        <label class="block font-black text-gray-800 text-sm uppercase tracking-wide mb-2">
+                            Step 1: Choose Share Category
+                        </label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <label class="border-2 border-blue-500 bg-white p-3 rounded-xl flex flex-col cursor-pointer hover:bg-blue-50 transition relative selection-card" id="labelOrdinary">
+                                <input type="radio" name="shareType" value="ordinary" checked class="absolute top-3 right-3 accent-blue-600 w-4 h-4">
+                                <span class="font-bold text-sm text-gray-900">Ordinary Share</span>
+                                <span class="text-[11px] text-gray-500 mt-0.5">Full voting power & variable dividends.</span>
+                            </label>
+                            <label class="border border-gray-200 bg-white p-3 rounded-xl flex flex-col cursor-pointer hover:bg-blue-50 transition relative selection-card" id="labelPreference">
+                                <input type="radio" name="shareType" value="preference" class="absolute top-3 right-3 accent-blue-600 w-4 h-4">
+                                <span class="font-bold text-sm text-gray-900">Preference Share</span>
+                                <span class="text-[11px] text-gray-500 mt-0.5">Fixed 10% dividends & payout priority, no votes.</span>
+                            </label>
+                        </div>
                     </div>
-                    <p class="text-xs text-gray-500 italic mb-4">Drag the slider to preview, then lock it in below.</p>
-                    
-                    <button id="buyButton" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-black py-4 px-6 rounded-xl text-xl shadow transition duration-150 transform hover:scale-[1.01] active:scale-[0.99] uppercase tracking-wider">
-                        Step 2: Click Here to Buy Shares 
+
+                    <!-- Step 2: Slider -->
+                    <div>
+                        <label for="shareSlider" class="block font-black text-gray-800 text-sm uppercase tracking-wide mb-1">
+                            Step 2: Choose Number of Shares to Buy
+                        </label>
+                        <div class="flex items-center space-x-4">
+                            <input type="range" id="shareSlider" min="0" max="1000" value="0" class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                            <span id="sliderPreview" class="text-xl font-black text-gray-400 w-20 text-right">0</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Profit Box Simulation -->
+                    <div>
+                        <label for="companyProfit" class="block font-black text-gray-800 text-sm uppercase tracking-wide mb-1">
+                            Step 3: Simulate Total Company Profit (Rs)
+                        </label>
+                        <input type="number" id="companyProfit" value="2000" min="0" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-gray-900 font-bold focus:outline-none focus:border-blue-500 shadow-sm" placeholder="e.g. 2000">
+                        <p class="text-[11px] text-gray-500 mt-1 italic">Change this number to show students how earnings affect payouts differently.</p>
+                    </div>
+
+                    <!-- Step 4: Trigger -->
+                    <button id="buyButton" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-black py-3.5 px-6 rounded-xl text-lg shadow transition duration-150 transform hover:scale-[1.01] active:scale-[0.99] uppercase tracking-wider">
+                        Step 4: Click Here to Buy Shares 
                     </button>
                 </div>
 
-                <!-- Financial Metrics Outlets (Locked until Buy) -->
+                <!-- Real-Time Metrics -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200 shadow-sm">
-                        <span class="text-xs font-semibold uppercase text-emerald-700 block tracking-wider">Your Investment Cost</span>
+                        <span class="text-xs font-semibold uppercase text-emerald-700 block tracking-wider">Your Total Cost</span>
                         <span id="costDisplay" class="text-3xl font-black text-emerald-800">0 Rs</span>
                         <div class="text-xs text-emerald-700 mt-2 pt-2 border-t border-emerald-200 italic">
                             Formula: Shares Bought × 10 Rs per share
@@ -63,89 +101,82 @@
                             <span class="text-xs font-semibold uppercase text-purple-700 block tracking-wider">Your Ownership & Voting Power</span>
                             <span id="ownershipDisplay" class="text-3xl font-black text-purple-800">0%</span>
                         </div>
-                        <div class="text-[11px] text-purple-700 mt-3 pt-2 border-t border-purple-200 font-mono">
+                        <div class="text-[11px] text-purple-700 mt-3 pt-2 border-t border-purple-200 font-mono" id="votingFormulaText">
                             Formula: (Shares Bought ÷ 1,000 Total Shares) × 100
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Column: Visualizations & Live Certificate Box -->
+            <!-- Right Column: Results & Logic Summary -->
             <div class="space-y-6">
-                <!-- Visual Breakdown Box -->
-                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <h3 class="text-lg font-bold text-gray-800 mb-4">Visual Breakdown of Assets & Liabilities</h3>
+                <!-- Visual Corporate Breakdown Panels -->
+                <div class="bg-gray-50 p-5 rounded-xl border border-gray-200 shadow-sm">
+                    <h3 class="text-base font-bold text-gray-800 mb-4 uppercase tracking-wider">Visual Corporate Breakdown</h3>
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
-                        <!-- The Building Visual -->
-                        <div class="flex flex-col items-center bg-white p-4 rounded-xl border border-gray-100 shadow-inner">
-                            <span class="text-xs font-bold text-gray-500 uppercase mb-2">Asset Ownership Level</span>
-                            <div class="w-24 h-48 bg-gray-200 border-4 border-gray-700 rounded-t-lg relative overflow-hidden">
-                                <div class="absolute inset-0 grid grid-cols-2 gap-2 p-2 opacity-10 pointer-events-none">
-                                    <div class="bg-gray-600 rounded"></div><div class="bg-gray-600 rounded"></div>
-                                    <div class="bg-gray-600 rounded"></div><div class="bg-gray-600 rounded"></div>
-                                </div>
-                                <div id="buildingFill" class="absolute bottom-0 left-0 right-0 bg-blue-500 transition-all duration-300 ease-out" style="height: 0%;"></div>
-                            </div>
-                            <span id="buildingLabel" class="text-xs font-bold mt-2 text-center text-gray-500">0% Owned</span>
-                        </div>
-
-                        <!-- Proportional Balance Sheets -->
-                        <div class="space-y-3">
-                            <div class="bg-green-50 border border-green-300 rounded-xl p-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-stretch">
+                        <!-- Asset Graphic -->
+                        <div class="bg-green-50 border border-green-300 rounded-xl p-3 flex flex-col justify-between">
+                            <div>
                                 <h4 class="font-bold text-green-800 text-xs uppercase">Your Proportional Assets</h4>
                                 <div class="text-xl font-black text-green-900 mt-1"><span id="assetShare">0 Rs</span></div>
-                                <div class="text-[10px] text-green-700 font-mono mt-1">Formula: Ownership % × 12,000 Rs</div>
                             </div>
+                            <div class="text-[10px] text-green-700 font-mono mt-3 pt-2 border-t border-green-200">Formula: Ownership % × 12,000 Rs</div>
+                        </div>
 
-                            <div class="bg-red-50 border border-red-300 rounded-xl p-3">
+                        <!-- Liability Graphic -->
+                        <div class="bg-red-50 border border-red-300 rounded-xl p-3 flex flex-col justify-between">
+                            <div>
                                 <h4 class="font-bold text-red-800 text-xs uppercase">Your Proportional Liabilities</h4>
                                 <div class="text-xl font-black text-red-900 mt-1"><span id="liabilityShare">0 Rs</span></div>
-                                <div class="text-[10px] text-red-700 font-mono mt-1">Formula: Ownership % × 2,000 Rs</div>
                             </div>
+                            <div class="text-[10px] text-red-700 font-mono mt-3 pt-2 border-t border-red-200">Formula: Ownership % × 2,000 Rs</div>
+                        </div>
+
+                        <!-- Dividend Framework Box -->
+                        <div class="bg-amber-50 border border-amber-300 rounded-xl p-3 flex flex-col justify-between" id="dividendBox">
+                            <div>
+                                <h4 class="font-bold text-amber-800 text-xs uppercase">Your Calculated Dividend Payout</h4>
+                                <div class="text-2xl font-black text-amber-950 mt-1" id="dividendValueDisplay">0 Rs</div>
+                            </div>
+                            <div class="text-[10px] text-amber-700 font-mono mt-3 pt-2 border-t border-amber-200" id="dividendFormula">Formula rules vary</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Post-Purchase Summary & Certificate Area -->
-                <div class="bg-amber-50 border-2 border-dashed border-amber-300 rounded-xl p-6 shadow-sm">
-                    <h3 class="text-lg font-bold text-amber-900 mb-3 uppercase tracking-wide flex items-center">
-                        <span>📋 Purchase Summary & Proof</span>
-                    </h3>
+                <!-- Summary & Certificate Panel -->
+                <div class="bg-stone-50 border-2 border-dashed border-stone-300 rounded-xl p-6 shadow-sm">
+                    <h3 class="text-lg font-bold text-stone-900 mb-3 uppercase tracking-wide">📋 What You Officially Hold Now</h3>
                     
-                    <div id="placeholderSummary" class="text-center py-8 text-amber-700 italic text-sm">
-                        Select your preferred share volume on the slider and click the "Buy Shares" button to construct your corporate proof of ownership.
+                    <div id="placeholderSummary" class="text-center py-12 text-stone-500 italic text-sm">
+                        Configure steps 1, 2, and 3, then click "Buy Shares" to issue your legal corporate certificate and ownership data.
                     </div>
 
-                    <div id="activeSummary" class="hidden space-y-4">
-                        <!-- The Share Certificate Visual -->
-                        <div class="bg-white border-4 double border-amber-800 p-4 rounded shadow-md relative overflow-hidden bg-[radial-gradient(#fcf6e8_1px,transparent_1px)] [background-size:16px_16px]">
-                            <div class="absolute inset-2 border border-amber-800 opacity-40 pointer-events-none"></div>
+                    <div id="activeSummary" class="hidden space-y-6">
+                        <!-- Certificate Rendering -->
+                        <div class="bg-white border-4 double border-stone-800 p-5 rounded shadow-md relative overflow-hidden bg-[radial-gradient(#f3f3f3_1px,transparent_1px)] [background-size:16px_16px]">
+                            <div class="absolute inset-2 border border-stone-800 opacity-30 pointer-events-none"></div>
                             <div class="text-center">
-                                <h4 class="font-serif font-bold text-xl text-amber-900 tracking-wider uppercase">Share Certificate</h4>
-                                <p class="text-[10px] text-amber-700 font-serif italic">The Building Corporation Ltd.</p>
-                                <div class="my-3 border-y border-amber-800 py-2">
-                                    <p class="text-xs text-gray-700">This document certifies that the bearer is the legal owner of</p>
-                                    <p class="text-xl font-mono font-black text-amber-900 my-1"><span id="certShares">0</span> Shares</p>
+                                <h4 class="font-serif font-bold text-2xl text-stone-900 tracking-wider uppercase" id="certTitle">Share Certificate</h4>
+                                <p class="text-xs text-stone-600 font-serif italic tracking-wide mt-1">The Building Corporation Ltd.</p>
+                                <div class="my-4 border-y border-stone-800 py-3">
+                                    <p class="text-xs text-gray-600">This document validates that the holder holds legal title to</p>
+                                    <p class="text-2xl font-mono font-black text-stone-900 my-1"><span id="certShares">0</span> Shares</p>
                                 </div>
-                                <p class="text-[11px] text-gray-600 max-w-sm mx-auto">
-                                    Entitling the legal holder to real equity ownership, fractional backing of corporate assets, and voting rights matching their capital contribution tier.
+                                <p class="text-[10px] text-gray-500 max-w-sm mx-auto uppercase tracking-wider" id="certOwnershipStatement">
+                                    Full fractional asset registration status active.
                                 </p>
                             </div>
                         </div>
 
-                        <!-- Clear Takeaway Breakdown -->
-                        <div class="bg-white/80 rounded-lg p-4 border border-amber-200 text-sm space-y-2 text-gray-800">
-                            <h5 class="font-bold text-amber-950 text-xs uppercase tracking-wide">What you officially hold now:</h5>
-                            <ul class="list-disc pl-4 space-y-1 text-xs">
-                                <li><strong>Proof of Claim:</strong> You hold an active share certificate as absolute evidence of your investment.</li>
-                                <li><strong>Voting Influence:</strong> You control exactly <span id="summaryVotes" class="font-bold text-purple-700">0%</span> of all corporate votes.</li>
-                                <li>
-                                    <strong>Asset Backing:</strong> You own a fractional title value of <span id="summaryAssetFormula" class="font-mono text-green-700">0 Rs</span> 
-                                </li>
-                                <li>
-                                    <strong>Debt Responsibility:</strong> You are tied to a fractional liability weight of <span id="summaryLiabilityFormula" class="font-mono text-red-700">0 Rs</span>
-                                </li>
+                        <!-- Summary Bullets -->
+                        <div class="bg-white rounded-lg p-4 border border-stone-200 text-sm space-y-3">
+                            <ul class="list-disc pl-4 space-y-2 text-xs text-gray-700">
+                                <li><strong>Proof of Status:</strong> You hold an active corporate <span id="summaryCertName" class="font-bold text-stone-900">Ordinary</span> certificate.</li>
+                                <li><strong>Voting Influence:</strong> <span id="summaryVotingText" class="font-bold text-purple-700">0% Voting Power</span></li>
+                                <li><strong>Asset Backing:</strong> You own a fractional title asset claim value of <span id="summaryAssetFormula" class="font-mono text-green-700">0 Rs</span> (Formula: Ownership % × 12,000 Rs).</li>
+                                <li><strong>Debt Weight:</strong> You hold a shared corporate liability accountability weight of <span id="summaryLiabilityFormula" class="font-mono text-red-700">0 Rs</span> (Formula: Ownership % × 2,000 Rs).</li>
+                                <li id="summaryPriorityText" class="text-blue-800 font-medium">Winding up framework text goes here.</li>
                             </ul>
                         </div>
                     </div>
@@ -154,79 +185,128 @@
         </div>
     </div>
 
-    <!-- Script Logic Processing State Changes Only On Click -->
+    <!-- Script Processing -->
     <script>
         const slider = document.getElementById('shareSlider');
         const sliderPreview = document.getElementById('sliderPreview');
+        const profitInput = document.getElementById('companyProfit');
         const buyButton = document.getElementById('buyButton');
         
-        // Output DOM hooks
+        // Form radio hooks
+        const radOrdinary = document.getElementById('labelOrdinary');
+        const radPreference = document.getElementById('labelPreference');
+
+        // Dynamic output targets
         const costDisplay = document.getElementById('costDisplay');
         const ownershipDisplay = document.getElementById('ownershipDisplay');
-        const buildingFill = document.getElementById('buildingFill');
-        const buildingLabel = document.getElementById('buildingLabel');
+        const votingFormulaText = document.getElementById('votingFormulaText');
         const assetShare = document.getElementById('assetShare');
         const liabilityShare = document.getElementById('liabilityShare');
         
-        // Summary & Certificate DOM hooks
+        // Dividend targets
+        const dividendValueDisplay = document.getElementById('dividendValueDisplay');
+        const dividendFormula = document.getElementById('dividendFormula');
+
+        // Summary panels
         const placeholderSummary = document.getElementById('placeholderSummary');
         const activeSummary = document.getElementById('activeSummary');
+        const certTitle = document.getElementById('certTitle');
         const certShares = document.getElementById('certShares');
-        const summaryVotes = document.getElementById('summaryVotes');
+        const certOwnershipStatement = document.getElementById('certOwnershipStatement');
+        const summaryCertName = document.getElementById('summaryCertName');
+        const summaryVotingText = document.getElementById('summaryVotingText');
         const summaryAssetFormula = document.getElementById('summaryAssetFormula');
         const summaryLiabilityFormula = document.getElementById('summaryLiabilityFormula');
+        const summaryPriorityText = document.getElementById('summaryPriorityText');
 
-        // Corporate Constants
+        // Global Parameters
         const TOTAL_SHARES = 1000;
         const SHARE_PRICE = 10;
         const TOTAL_ASSETS = 12000;
         const TOTAL_LIABILITIES = 2000;
 
-        // 1. Live Slider Label Update (Numbers DO NOT update elsewhere yet)
-        slider.addEventListener('input', () => {
-            sliderPreview.textContent = slider.value;
-            sliderPreview.classList.remove('text-gray-500');
-            sliderPreview.classList.add('text-blue-600');
+        // Visual border adjustments for selection cards
+        document.querySelectorAll('input[name="shareType"]').forEach(radio => {
+            radio.addEventListener('change', () => {
+                if(radio.value === 'ordinary') {
+                    radOrdinary.className = "border-2 border-blue-500 bg-white p-3 rounded-xl flex flex-col cursor-pointer relative";
+                    radPreference.className = "border border-gray-200 bg-white p-3 rounded-xl flex flex-col cursor-pointer relative";
+                } else {
+                    radPreference.className = "border-2 border-blue-500 bg-white p-3 rounded-xl flex flex-col cursor-pointer relative";
+                    radOrdinary.className = "border border-gray-200 bg-white p-3 rounded-xl flex flex-col cursor-pointer relative";
+                }
+            });
         });
 
-        // 2. Process Everything ONLY when clicking the Buy Button
+        // Slider input feedback
+        slider.addEventListener('input', () => {
+            sliderPreview.textContent = slider.value;
+            sliderPreview.className = "text-xl font-black text-blue-600 w-20 text-right";
+        });
+
+        // Processing Logic execution on Action Click
         buyButton.addEventListener('click', () => {
             const userShares = parseInt(slider.value);
+            const type = document.querySelector('input[name="shareType"]:checked').value;
+            const profitValue = parseFloat(profitInput.value) || 0;
             
+            if (userShares <= 0) {
+                placeholderSummary.classList.remove('hidden');
+                activeSummary.classList.add('hidden');
+                return;
+            }
+
             // Calculations
             const ownershipPercentage = (userShares / TOTAL_SHARES) * 100;
             const totalCost = userShares * SHARE_PRICE;
             const userAssetShare = (userShares / TOTAL_SHARES) * TOTAL_ASSETS;
             const userLiabilityShare = (userShares / TOTAL_SHARES) * TOTAL_LIABILITIES;
 
-            // Core Metrics Output
+            // Base Outputs
             costDisplay.textContent = totalCost.toLocaleString('en-IN') + ' Rs';
             ownershipDisplay.textContent = ownershipPercentage.toFixed(1) + '%';
-
-            // Visual Graphic Upgrades
-            buildingFill.style.height = ownershipPercentage + '%';
-            buildingLabel.textContent = `${ownershipPercentage.toFixed(1)}% Owned`;
-            buildingLabel.classList.remove('text-gray-500');
-            buildingLabel.classList.add('text-blue-600');
-
             assetShare.textContent = userAssetShare.toLocaleString('en-IN') + ' Rs';
             liabilityShare.textContent = userLiabilityShare.toLocaleString('en-IN') + ' Rs';
 
-            // Populate Certificate and Summary Panels
-            if (userShares > 0) {
-                placeholderSummary.classList.add('hidden');
-                activeSummary.classList.remove('hidden');
+            placeholderSummary.classList.add('hidden');
+            activeSummary.classList.remove('hidden');
+            certShares.textContent = userShares.toLocaleString('en-IN');
+            
+            summaryAssetFormula.textContent = `${userAssetShare.toLocaleString('en-IN')} Rs`;
+            summaryLiabilityFormula.textContent = `${userLiabilityShare.toLocaleString('en-IN')} Rs`;
+
+            // Conditional Split Logic based on selected Category Type
+            if (type === 'ordinary') {
+                votingFormulaText.textContent = "Formula: (Shares Bought ÷ 1,000 Total Shares) × 100";
                 
-                certShares.textContent = userShares.toLocaleString('en-IN');
-                summaryVotes.textContent = ownershipPercentage.toFixed(1) + '%';
+                // Ordinary dividend is fully proportional to the entered profit pool
+                const ordinaryDivPayout = (userShares / TOTAL_SHARES) * profitValue;
+                dividendValueDisplay.textContent = ordinaryDivPayout.toLocaleString('en-IN') + ' Rs';
+                dividendFormula.textContent = `Formula: ${ownershipPercentage.toFixed(1)}% Ownership × ${profitValue.toLocaleString('en-IN')} Rs Profit`;
+
+                certTitle.textContent = "Ordinary Share Certificate";
+                certOwnershipStatement.textContent = "Full Voting Rights & Variable Operational Equity Registered.";
                 
-                // Formulas output strings explicitly
-                summaryAssetFormula.textContent = `${userAssetShare.toLocaleString('en-IN')} Rs (${ownershipPercentage.toFixed(1)}% of 12,000 Rs)`;
-                summaryLiabilityFormula.textContent = `${userLiabilityShare.toLocaleString('en-IN')} Rs (${ownershipPercentage.toFixed(1)}% of 2,000 Rs)`;
-            } else {
-                // Reset view if they click buy on 0 shares
-                placeholderSummary.classList.remove('hidden');
-                activeSummary.classList.add('hidden');
+                summaryCertName.textContent = "Ordinary Share";
+                summaryVotingText.textContent = `${ownershipPercentage.toFixed(1)}% Voting Power (Matches your ownership exactly)`;
+                summaryPriorityText.textContent = "⚠️ Liquidation Rank: Paid Last. In case of business winding up, ordinary shareholders only receive asset residuals after all liabilities and preference claims are paid out.";
+                summaryPriorityText.className = "text-amber-800 font-medium bg-amber-50 p-2 rounded border border-amber-200";
+
+            } else if (type === 'preference') {
+                votingFormulaText.textContent = "Formula: Always 0% (Preference shares hold no general voting tokens)";
+                
+                // Preference dividend is strictly fixed to 10% of their invested capital base
+                const expectedPreferenceDiv = totalCost * 0.10;
+                dividendValueDisplay.textContent = expectedPreferenceDiv.toLocaleString('en-IN') + ' Rs';
+                dividendFormula.textContent = `Formula: Fixed 10% × ${totalCost.toLocaleString('en-IN')} Rs Capital Invested`;
+
+                certTitle.textContent = "Preference Share Certificate";
+                certOwnershipStatement.textContent = "Protected Capital Status: 10% Fixed Dividend Priority / No General Voting Rights.";
+                
+                summaryCertName.textContent = "Preference Share";
+                summaryVotingText.textContent = "0% (No Voting Power allocated to this structural tier)";
+                summaryPriorityText.textContent = "🛡️ Liquidation Rank: Senior Payout Priority. At the time of winding up of the business, you receive your asset settlement preference ahead of ordinary shareholders.";
+                summaryPriorityText.className = "text-blue-800 font-medium bg-blue-50 p-2 rounded border border-blue-200";
             }
         });
     </script>
