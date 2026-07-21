@@ -5,68 +5,110 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baketime: Share Ownership Simulator</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Smooth Floating Background Animations */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(6deg); }
+        }
+        @keyframes floatMedium {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-16px) rotate(-8deg); }
+        }
+        @keyframes steamRise {
+            0% { transform: translateY(0) scaleX(1); opacity: 0.8; }
+            50% { transform: translateY(-10px) scaleX(1.2); opacity: 0.4; }
+            100% { transform: translateY(-20px) scaleX(1.4); opacity: 0; }
+        }
+        .anim-float-1 { animation: floatSlow 6s ease-in-out infinite; }
+        .anim-float-2 { animation: floatMedium 8s ease-in-out infinite 1s; }
+        .anim-float-3 { animation: floatSlow 7s ease-in-out infinite 2s; }
+        .anim-float-4 { animation: floatMedium 9s ease-in-out infinite 0.5s; }
+        .steam-line-1 { animation: steamRise 2s ease-out infinite; }
+        .steam-line-2 { animation: steamRise 2s ease-out infinite 0.6s; }
+        .steam-line-3 { animation: steamRise 2s ease-out infinite 1.2s; }
+    </style>
 </head>
-<!-- Warm, pastry-cream background with a subtle checkered pastry paper texture -->
-<body class="bg-[#faf6ed] bg-[linear-gradient(to_right,#f5eedc_1px,transparent_1px),linear-gradient(to_bottom,#f5eedc_1px,transparent_1px)] bg-[size:40px_40px] text-slate-800 font-sans min-h-screen py-10 px-4 relative overflow-x-hidden">
+<!-- Warm, bakery-cream background with animated floating cafe icons -->
+<body class="bg-[#faf5ea] bg-[radial-gradient(#e5d9c2_1px,transparent_1px)] [background-size:24px_24px] text-slate-800 font-sans min-h-screen py-8 px-4 relative overflow-x-hidden">
 
-    <!-- DECORATIVE BACKGROUND BAKERY GRAPHICS (Floating Icons) -->
-    <div class="hidden xl:block absolute top-10 left-10 opacity-10 pointer-events-none transform -rotate-12">
-        <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- ANIMATED BACKGROUND BAKERY GRAPHICS -->
+    <!-- Floating Croissant (Top Left) -->
+    <div class="hidden xl:block absolute top-12 left-10 opacity-20 pointer-events-none anim-float-1">
+        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#78350f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M2 12a10 10 0 0 1 15.3-8.35l-2 3.46A6 6 0 0 0 7 12Z"/>
             <path d="M5 12a7 7 0 0 1 10.59-6"/>
             <path d="M22 12a10 10 0 0 0-15.3-8.35l2 3.46A6 6 0 0 1 17 12Z"/>
             <path d="M19 12a7 7 0 0 0-10.59-6"/>
         </svg>
     </div>
-    <div class="hidden xl:block absolute top-16 right-12 opacity-10 pointer-events-none transform rotate-12">
-        <svg width="110" height="110" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="1.5">
+    <!-- Floating Cupcake (Top Right) -->
+    <div class="hidden xl:block absolute top-16 right-12 opacity-20 pointer-events-none anim-float-2">
+        <svg width="95" height="95" viewBox="0 0 24 24" fill="none" stroke="#78350f" stroke-width="1.8">
             <path d="M5 16l2 5h10l2-5"/>
             <path d="M4 12c0-3 3-5 8-5s8 2 8 5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/>
-            <circle cx="12" cy="4" r="1" fill="#b45309"/>
+            <circle cx="12" cy="4" r="1.5" fill="#78350f"/>
+        </svg>
+    </div>
+    <!-- Floating Coffee Mug (Bottom Left) -->
+    <div class="hidden xl:block absolute bottom-24 left-14 opacity-20 pointer-events-none anim-float-3">
+        <svg width="95" height="95" viewBox="0 0 24 24" fill="none" stroke="#78350f" stroke-width="1.8">
+            <path d="M17 8h1a4 4 0 1 1 0 8h-1"/>
+            <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/>
+            <line x1="6" y1="2" x2="6" y2="4"/>
+            <line x1="10" y1="2" x2="10" y2="4"/>
+            <line x1="14" y1="2" x2="14" y2="4"/>
+        </svg>
+    </div>
+    <!-- Floating Pie Slice (Bottom Right) -->
+    <div class="hidden xl:block absolute bottom-28 right-16 opacity-20 pointer-events-none anim-float-4">
+        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#78350f" stroke-width="1.8">
+            <path d="M21 16L3 12l18-7v11z"/>
+            <path d="M3 12c0 3 3 6 9 6s9-3 9-6"/>
+            <path d="M12 18v3"/>
         </svg>
     </div>
 
-    <!-- MAIN PAGE WRAPPER (Allows clean scrolling down) -->
-    <div class="w-full max-w-4xl mx-auto space-y-12 z-10 relative">
+    <!-- MAIN PAGE CONTAINER -->
+    <div class="w-full max-w-4xl mx-auto space-y-10 z-10 relative">
         
-        <!-- SECTION 1: THE INTERACTIVE SIMULATOR CONTAINER -->
-        <div class="bg-[#fdfaf2] rounded-xl shadow-xl border border-[#eadaa6] overflow-hidden">
+        <!-- SECTION 1: THE INTERACTIVE SIMULATOR CARD -->
+        <div class="bg-[#fdfbf7] rounded-2xl shadow-2xl border-2 border-[#e7d8c0] overflow-hidden">
             
-            <!-- Header (Artisan Bakery Themed Banner) -->
-            <div class="bg-[#4a3728] p-6 text-white text-center border-b-4 border-[#d97706] relative">
-                <div class="absolute inset-0 opacity-5 bg-[radial-gradient(#fff_1px,transparent_1px)] bg-[size:10px_10px]"></div>
+            <!-- Header Banner -->
+            <div class="bg-[#3d2817] p-6 text-white text-center border-b-4 border-[#d97706] relative">
                 <h1 class="text-3xl font-black tracking-wide text-[#fcd34d] flex items-center justify-center gap-2">
-                    🥐 BAKETIME BAKERY CAFE
+                    ☕ BAKETIME BAKERY CAFE
                 </h1>
                 <p class="text-xs text-[#ebd8c3] font-medium tracking-widest uppercase mt-1">Expansion Challenge: From Dough to Dollars</p>
             </div>
 
-            <!-- SCREEN 1: THE SETUP VIEW (Shown by default) -->
+            <!-- SCREEN 1: THE SETUP VIEW -->
             <div id="configView" class="p-8 space-y-8">
                 
-                <!-- Company Profile & Story Layout -->
-                <div class="bg-[#f7f2e4] p-6 rounded-lg border border-[#e2d4b7] space-y-4 shadow-sm">
+                <!-- Story Box -->
+                <div class="bg-[#f5ede0] p-6 rounded-xl border border-[#e2d2b8] space-y-4 shadow-sm">
                     <div>
-                        <h2 class="text-xs font-bold uppercase tracking-wider text-amber-800 mb-1 flex items-center gap-1">
+                        <h2 class="text-xs font-bold uppercase tracking-wider text-amber-900 mb-1 flex items-center gap-1">
                             <span>📖</span> The Expansion Story
                         </h2>
-                        <p class="text-xs text-stone-600 leading-relaxed">
+                        <p class="text-xs text-stone-700 leading-relaxed">
                             Baketime is expanding! They are buying a permanent commercial storefront. The property and baking equipment cost a total of <strong>12,000 Rs (Assets)</strong>. A bank granted a loan of <strong>2,000 Rs (Liabilities)</strong> to cover industrial ovens. To fund the rest, Baketime is raising <strong>10,000 Rs (Net Capital)</strong> by issuing <strong>1,000 shares at 10 Rs each</strong>.
                         </p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm pt-4 border-t border-[#dfd2b5]">
-                        <div class="bg-white/80 p-2.5 rounded border border-[#eadaa6]">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm pt-4 border-t border-[#dfceb3]">
+                        <div class="bg-white/90 p-3 rounded-lg border border-[#e5d4bc]">
                             <span class="block text-stone-500 text-xs font-medium">Flagship Cafe Property (Assets)</span>
                             <span class="text-lg font-bold text-stone-900">12,000 Rs</span>
                         </div>
-                        <div class="bg-white/80 p-2.5 rounded border border-[#eadaa6]">
+                        <div class="bg-white/90 p-3 rounded-lg border border-[#e5d4bc]">
                             <span class="block text-stone-500 text-xs font-medium">Bank Ovens Loan (Liabilities)</span>
                             <span class="text-lg font-bold text-stone-900">2,000 Rs</span>
                         </div>
-                        <div class="bg-amber-50 p-2.5 rounded border border-amber-300">
-                            <span class="block text-amber-800 text-xs font-semibold">Funding Needed from Investors</span>
-                            <span class="text-lg font-black text-amber-900">10,000 Rs</span>
+                        <div class="bg-amber-100/70 p-3 rounded-lg border border-amber-300">
+                            <span class="block text-amber-900 text-xs font-bold">Funding Needed from Investors</span>
+                            <span class="text-lg font-black text-amber-950">10,000 Rs</span>
                         </div>
                     </div>
                 </div>
@@ -74,12 +116,12 @@
                 <!-- Interactive Inputs Form -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     
-                    <!-- Left: Choose Type & Profits -->
+                    <!-- Left Column: Step 1 & 2 -->
                     <div class="space-y-5">
                         <div>
                             <label class="block text-xs font-bold uppercase text-stone-400 tracking-wider mb-2">Step 1: Select Your Share Framework Class</label>
                             <div class="space-y-3">
-                                <label class="border-2 border-blue-600 bg-blue-50/40 p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-blue-50/60" id="labelOrdinary">
+                                <label class="border-2 border-blue-600 bg-blue-50/50 p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-blue-50" id="labelOrdinary">
                                     <div class="pr-2">
                                         <span class="block font-black text-base text-slate-900">Ordinary Share</span>
                                         <span class="text-[11px] text-slate-600 font-medium">Variable cafe dividend payouts + Active voting power</span>
@@ -87,10 +129,10 @@
                                     <input type="radio" name="shareType" value="ordinary" checked class="accent-blue-600 h-5 w-5 shrink-0">
                                 </label>
                                 
-                                <label class="border-2 border-amber-500/20 bg-white p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-amber-50/40" id="labelPreference">
+                                <label class="border-2 border-amber-500/20 bg-white p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-amber-50/50" id="labelPreference">
                                     <div class="pr-2">
-                                        <span class="block font-black text-base text-amber-900">⭐ Preference Share</span>
-                                        <span class="text-[11px] text-amber-800 font-semibold">Fixed 10% cafe return + Payout priority rank</span>
+                                        <span class="block font-black text-base text-amber-950">⭐ Preference Share</span>
+                                        <span class="text-[11px] text-amber-900 font-semibold">Fixed 10% cafe return + Payout priority rank</span>
                                     </div>
                                     <input type="radio" name="shareType" value="preference" class="accent-amber-600 h-5 w-5 shrink-0">
                                 </label>
@@ -99,28 +141,28 @@
 
                         <div>
                             <label for="companyProfit" class="block text-xs font-bold uppercase text-stone-400 tracking-wider mb-1">Step 2: Simulate Baketime's Store Profits (Rs)</label>
-                            <input type="number" id="companyProfit" value="2000" min="0" class="w-full bg-white border border-stone-300 rounded-lg px-3 py-2 text-sm font-semibold text-stone-900 focus:outline-none focus:border-amber-600">
+                            <input type="number" id="companyProfit" value="2000" min="0" class="w-full bg-white border border-stone-300 rounded-lg px-3 py-2 text-sm font-semibold text-stone-900 focus:outline-none focus:border-amber-700">
                         </div>
                     </div>
 
-                    <!-- Right: Choose Quantity -->
-                    <div class="space-y-4 bg-[#fbf8f0] p-4 rounded-lg border border-[#eadaa6] flex flex-col justify-center shadow-inner">
+                    <!-- Right Column: Step 3 -->
+                    <div class="space-y-4 bg-[#f8f2e6] p-5 rounded-xl border border-[#e5d4bc] flex flex-col justify-center shadow-inner">
                         <label class="block text-xs font-bold uppercase text-stone-400 tracking-wider mb-1">Step 3: Specify Share Units to Buy</label>
                         
                         <div>
                             <span class="block text-[11px] text-stone-500 mb-1">Type exact quantity (0 to 1,000):</span>
-                            <input type="number" id="shareInput" min="0" max="1000" value="0" class="w-full bg-white border border-stone-300 rounded-lg px-3 py-2 font-bold text-stone-900 text-center text-lg focus:outline-none focus:border-amber-600">
+                            <input type="number" id="shareInput" min="0" max="1000" value="0" class="w-full bg-white border border-stone-300 rounded-lg px-3 py-2 font-bold text-stone-900 text-center text-lg focus:outline-none focus:border-amber-700">
                         </div>
 
                         <div class="pt-2">
                             <span class="block text-[11px] text-stone-500 mb-2">Or use the slider tool:</span>
-                            <input type="range" id="shareSlider" min="0" max="1000" value="0" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-amber-700">
+                            <input type="range" id="shareSlider" min="0" max="1000" value="0" class="w-full h-2 bg-stone-300 rounded-lg appearance-none cursor-pointer accent-amber-800">
                         </div>
                     </div>
                 </div>
 
-                <!-- Big Action Trigger Button -->
-                <button id="buyButton" class="w-full bg-amber-700 hover:bg-amber-800 text-white font-black py-4 px-6 rounded-lg text-sm uppercase tracking-wider shadow transition duration-150 transform active:scale-[0.99]">
+                <!-- Buy Button -->
+                <button id="buyButton" class="w-full bg-[#d97706] hover:bg-[#b45309] text-white font-black py-4 px-6 rounded-xl text-sm uppercase tracking-wider shadow-md transition duration-150 transform active:scale-[0.99]">
                     Invest in Baketime & View Dashboard →
                 </button>
             </div>
@@ -129,67 +171,85 @@
             <!-- SCREEN 2: THE OUTPUT DASHBOARD VIEW -->
             <div id="resultsView" class="hidden p-8 space-y-8">
                 
-                <div class="flex flex-col sm:flex-row justify-between items-center bg-[#f7f2e4] border border-[#e2d4b7] p-3 rounded-lg gap-3 text-sm">
+                <!-- Return Bar -->
+                <div class="flex flex-col sm:flex-row justify-between items-center bg-[#f5ede0] border border-[#e2d2b8] p-3 rounded-xl gap-3 text-sm">
                     <div class="text-stone-700 font-medium">
                         Investment Status: <span class="text-emerald-700 font-bold">Successfully Registered in Baketime Registry</span>
                     </div>
-                    <button id="backButton" class="text-xs font-bold text-amber-800 hover:text-amber-900 uppercase tracking-wider flex items-center gap-1">
+                    <button id="backButton" class="text-xs font-bold text-amber-900 hover:text-amber-950 uppercase tracking-wider flex items-center gap-1">
                         ← Back to Story / Change Shares
                     </button>
                 </div>
 
                 <!-- Live Numerical Metrics Bar -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div class="bg-white border border-[#eadaa6] p-4 rounded-lg text-center shadow-sm">
+                    <div class="bg-white border-2 border-[#e5d4bc] p-4 rounded-xl text-center shadow-sm">
                         <span class="text-[10px] font-bold text-stone-400 uppercase tracking-wider block">Your Capital Cost</span>
                         <span id="costDisplay" class="text-2xl font-black text-stone-900 block mt-1">0 Rs</span>
                         <span class="text-[10px] text-stone-400 block mt-0.5 font-mono">Shares × 10 Rs</span>
                     </div>
-                    <div class="bg-white border border-[#eadaa6] p-4 rounded-lg text-center shadow-sm">
+                    <div class="bg-white border-2 border-[#e5d4bc] p-4 rounded-xl text-center shadow-sm">
                         <span class="text-[10px] font-bold text-stone-400 uppercase tracking-wider block">Your Ownership Status</span>
                         <span id="ownershipDisplay" class="text-2xl font-black text-stone-900 block mt-1">0%</span>
                         <span class="text-[10px] text-stone-400 block mt-0.5 font-mono">(Shares Bought ÷ 1,000 Total Shares) × 100</span>
                     </div>
-                    <div class="bg-white border border-[#eadaa6] p-4 rounded-lg text-center shadow-sm">
+                    <div class="bg-white border-2 border-[#e5d4bc] p-4 rounded-xl text-center shadow-sm">
                         <span class="text-[10px] font-bold text-stone-400 uppercase tracking-wider block">Your Cafe Dividend</span>
                         <span id="dividendValueDisplay" class="text-2xl font-black text-emerald-600 block mt-1">0 Rs</span>
                         <span id="dividendFormula" class="text-[10px] text-stone-400 block mt-0.5 font-mono font-semibold">Formula label</span>
                     </div>
                 </div>
 
-                <!-- Main Split Visual Display Area -->
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center border-t border-[#dfd2b5] pt-6">
+                <!-- Main Display Area: Replaced Building with Coffee / Dessert Glass Container -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center border-t border-[#e2d2b8] pt-6">
                     
-                    <!-- Left Sub-Side: Colorful Vector Building Ownership Graphic -->
+                    <!-- Left Sub-Side: Animated Bakery Coffee Cup Visual Asset -->
                     <div class="md:col-span-5 flex flex-col items-center border-b md:border-b-0 md:border-r border-stone-200 pb-6 md:pb-0 md:pr-6">
                         <span class="text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-3">Baketime Storefront Asset Fill</span>
                         
-                        <div class="w-32 flex flex-col items-center relative">
-                            <div class="w-0 h-0 border-l-[68px] border-l-transparent border-r-[68px] border-r-transparent border-b-[40px] border-b-rose-500 drop-shadow-sm"></div>
-                            <div class="w-[120px] h-60 bg-amber-300 border-[3px] border-slate-800 relative shadow-md overflow-hidden flex flex-col justify-between p-3 z-10">
-                                <div class="grid grid-cols-3 gap-2 w-full z-20"><div class="h-6 bg-sky-200 border border-slate-700 rounded-sm"></div><div class="h-6 bg-sky-200 border border-slate-700 rounded-sm"></div><div class="h-6 bg-sky-200 border border-slate-700 rounded-sm"></div></div>
-                                <div class="grid grid-cols-3 gap-2 w-full z-20"><div class="h-6 bg-sky-200 border border-slate-700 rounded-sm"></div><div class="h-6 bg-sky-200 border border-slate-700 rounded-sm"></div><div class="h-6 bg-sky-200 border border-slate-700 rounded-sm"></div></div>
-                                <div class="grid grid-cols-3 gap-2 w-full z-20"><div class="h-6 bg-sky-200 border border-slate-700 rounded-sm"></div><div class="h-6 bg-sky-200 border border-slate-700 rounded-sm"></div><div class="h-6 bg-sky-200 border border-slate-700 rounded-sm"></div></div>
-                                <div class="flex justify-between items-end w-full mt-auto z-20">
-                                    <div class="w-6 h-6 bg-sky-200 border border-slate-700 rounded-sm"></div>
-                                    <div class="w-10 h-12 bg-amber-800 border-t-2 border-x-2 border-slate-800 flex rounded-t-sm shadow-inner"><div class="w-1/2 h-full border-r border-slate-900/40 relative"><div class="absolute right-1 top-5 w-1 h-1 bg-yellow-400 rounded-full"></div></div><div class="w-1/2 h-full relative"><div class="absolute left-1 top-5 w-1 h-1 bg-yellow-400 rounded-full"></div></div></div>
-                                    <div class="w-6 h-6 bg-sky-200 border border-slate-700 rounded-sm"></div>
-                                </div>
-                                <div id="buildingFill" class="absolute bottom-0 left-0 right-0 bg-blue-600 opacity-85 transition-all duration-700 ease-out z-0" style="height: 0%;"></div>
-                            </div>
+                        <!-- Steam Animation Overlay -->
+                        <div class="flex space-x-2 mb-1 h-5 items-end">
+                            <div class="w-1.5 h-4 bg-amber-700/30 rounded-full steam-line-1"></div>
+                            <div class="w-1.5 h-5 bg-amber-700/40 rounded-full steam-line-2"></div>
+                            <div class="w-1.5 h-4 bg-amber-700/30 rounded-full steam-line-3"></div>
                         </div>
-                        <span id="buildingLabel" class="text-xs font-black mt-4 text-blue-600 bg-blue-50 px-2 py-1 rounded border border-blue-200 shadow-sm">0.0% Owned</span>
+
+                        <!-- Stylized Bakery Coffee / Dessert Glass Container -->
+                        <div class="relative w-36 h-56 flex flex-col items-center justify-end">
+                            <!-- Glass Mug Body -->
+                            <div class="w-32 h-48 bg-stone-100/60 border-4 border-[#3d2817] rounded-b-3xl relative overflow-hidden shadow-lg flex flex-col justify-end">
+                                
+                                <!-- Back Grid Guidelines inside mug for measuring % -->
+                                <div class="absolute inset-0 flex flex-col justify-between p-2 opacity-15 pointer-events-none text-[9px] font-mono font-bold text-stone-900">
+                                    <div class="border-b border-stone-800 w-full">100%</div>
+                                    <div class="border-b border-stone-800 w-full">75%</div>
+                                    <div class="border-b border-stone-800 w-full">50%</div>
+                                    <div class="border-b border-stone-800 w-full">25%</div>
+                                </div>
+
+                                <!-- Dynamic Coffee / Caramel Liquid Fill -->
+                                <div id="coffeeFill" class="w-full bg-gradient-to-t from-[#52331a] via-[#854d0e] to-[#d97706] transition-all duration-700 ease-out relative z-10" style="height: 0%;">
+                                    <!-- Cream Foam Layer on top of liquid -->
+                                    <div class="absolute -top-2 left-0 right-0 h-3 bg-[#fef3c7] rounded-full border-b border-amber-300 opacity-90"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Mug Handle -->
+                            <div class="absolute right-0 top-16 -mr-4 w-6 h-16 border-4 border-[#3d2817] rounded-r-xl pointer-events-none"></div>
+                        </div>
+                        
+                        <span id="coffeeLabel" class="text-xs font-black mt-4 text-amber-900 bg-amber-100 px-3 py-1 rounded-full border border-amber-300 shadow-sm">0.0% Owned</span>
                     </div>
 
                     <!-- Right Sub-Side: Simplified Balance Sheet Items & Legal Certificate -->
                     <div class="md:col-span-7 space-y-6">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div class="bg-white p-4 rounded border-2 border-[#eadaa6] shadow-sm">
+                            <div class="bg-white p-4 rounded-xl border-2 border-[#e5d4bc] shadow-sm">
                                 <span class="block text-xs font-bold text-stone-400 uppercase tracking-wide">YOU OWN</span>
                                 <span id="assetShare" class="text-xl font-black text-stone-900 block mt-1">0 Rs</span>
                                 <span class="block text-[10px] text-stone-400 mt-1 font-mono">Value: Ownership % × 12,000 Rs Store Asset</span>
                             </div>
-                            <div class="bg-white p-4 rounded border-2 border-[#eadaa6] shadow-sm">
+                            <div class="bg-white p-4 rounded-xl border-2 border-[#e5d4bc] shadow-sm">
                                 <span class="block text-xs font-bold text-stone-400 tracking-wide uppercase">YOUR LIABILITY</span>
                                 <span id="liabilityShare" class="text-xl font-black text-stone-900 block mt-1">0 Rs</span>
                                 <span class="block text-[10px] text-stone-400 mt-1 font-mono">Weight: Ownership % × 2,000 Rs Oven Debt</span>
@@ -197,8 +257,8 @@
                         </div>
 
                         <!-- Certificate Interface -->
-                        <div class="bg-white border-2 border-amber-800 p-5 rounded text-center relative max-w-sm mx-auto shadow-md">
-                            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-amber-800 text-[#fcd34d] px-2 py-0.5 rounded text-[9px] font-bold uppercase">Official Seal</div>
+                        <div class="bg-white border-2 border-amber-900 p-5 rounded-xl text-center relative max-w-sm mx-auto shadow-md">
+                            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-amber-900 text-[#fcd34d] px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider">Official Seal</div>
                             <h4 id="certTitle" class="font-serif font-bold text-base text-amber-950 uppercase tracking-wide">Corporate Document</h4>
                             <p class="text-[9px] text-stone-400 font-serif italic">Baketime Corporation Ltd.</p>
                             <div class="my-3 border-y border-stone-200 py-2">
@@ -210,62 +270,62 @@
                     </div>
                 </div>
 
-                <!-- Simplified Plain English Translation Section -->
-                <div class="bg-[#4a3728] text-white rounded-lg p-5 space-y-3 text-xs leading-relaxed shadow-lg border-b-4 border-amber-700">
+                <!-- Plain English Translation Section -->
+                <div class="bg-[#3d2817] text-white rounded-xl p-5 space-y-3 text-xs leading-relaxed shadow-lg border-b-4 border-amber-700">
                     <h3 class="font-bold uppercase tracking-wider text-amber-300 text-[10px] tracking-widest">Plain English Translation</h3>
                     <p>📁 **Corporate Registry Class:** You are registered under the active Baketime <span id="summaryCertName" class="font-bold text-amber-300">Ordinary</span> framework class.</p>
                     <p>🗳️ **Voting Power:** You have <span id="summaryVotingText" class="font-bold text-amber-300">0%</span> voting rights <span id="votingBracketText" class="text-[#ebd8c3] font-medium">(Matches your ownership exactly)</span>.</p>
-                    <div id="summaryPriorityText" class="p-3 rounded text-stone-200 font-medium bg-[#3d2d21] border border-[#5a4535]">Priority description box.</div>
+                    <div id="summaryPriorityText" class="p-3 rounded-lg text-stone-200 font-medium bg-[#2e1d10] border border-[#523824]">Priority description box.</div>
                 </div>
             </div>
         </div>
 
         <!-- SECTION 2: SCROLL DOWN CONTENT - THE INVESTOR ACADEMY -->
-        <div class="bg-white rounded-xl shadow-lg border border-[#eadaa6] p-8 space-y-8">
+        <div class="bg-[#fdfbf7] rounded-2xl shadow-xl border-2 border-[#e7d8c0] p-8 space-y-8">
             <div class="text-center max-w-xl mx-auto">
-                <span class="text-xs font-bold uppercase tracking-widest text-amber-700 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">Reference Guide</span>
+                <span class="text-xs font-bold uppercase tracking-widest text-amber-800 bg-amber-100 px-3 py-1 rounded-full border border-amber-300">Reference Guide</span>
                 <h2 class="text-2xl font-black text-stone-900 mt-2">Baketime Investor Academy</h2>
                 <p class="text-xs text-stone-500 mt-1">Scroll down to easily compare the differences between share framework classes side-by-side.</p>
             </div>
 
-            <!-- Crisp Side-by-Side Comparison Table -->
-            <div class="overflow-x-auto border border-stone-200 rounded-lg shadow-sm bg-[#fffdfa]">
+            <!-- Side-by-Side Comparison Table -->
+            <div class="overflow-x-auto border-2 border-[#e5d4bc] rounded-xl shadow-sm bg-white">
                 <table class="w-full text-left border-collapse text-xs">
                     <thead>
-                        <tr class="bg-[#4a3728] text-[#fcd34d] font-bold uppercase tracking-wider">
+                        <tr class="bg-[#3d2817] text-[#fcd34d] font-bold uppercase tracking-wider">
                             <th class="p-4 border-b border-stone-200">Core Feature</th>
                             <th class="p-4 border-b border-stone-200">Ordinary Shares</th>
                             <th class="p-4 border-b border-stone-200">Preference Shares</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-stone-200 text-stone-700">
-                        <tr class="hover:bg-amber-50/30 transition">
-                            <td class="p-4 font-bold text-stone-900 bg-stone-50/40">🗳️ Voting & Control</td>
+                        <tr class="hover:bg-amber-50/40 transition">
+                            <td class="p-4 font-bold text-stone-900 bg-stone-50">🗳️ Voting & Control</td>
                             <td class="p-4"><strong>Full Voting Power:</strong> Puts you in the driver’s seat. 1 share equals 1 vote to elect board directors and steer cafe choices.</td>
-                            <td class="p-4 text-amber-900 font-medium"><strong>No Voting Power:</strong> You function strictly as a silent financial funding partner with zero governance voting tokens.</td>
+                            <td class="p-4 text-amber-950 font-medium"><strong>No Voting Power:</strong> You function strictly as a silent financial funding partner with zero governance voting tokens.</td>
                         </tr>
-                        <tr class="hover:bg-amber-50/30 transition">
-                            <td class="p-4 font-bold text-stone-900 bg-stone-50/40">💰 Dividend Strategy</td>
+                        <tr class="hover:bg-amber-50/40 transition">
+                            <td class="p-4 font-bold text-stone-900 bg-stone-50">💰 Dividend Strategy</td>
                             <td class="p-4"><strong>Variable Returns:</strong> Payout expands enormously if cafe profits soar, but shrinks to absolute zero if earnings drop.</td>
-                            <td class="p-4 text-amber-900 font-medium"><strong>Fixed 10% Protection:</strong> Locked at a set 10% yield on your original investment capital base before others are considered.</td>
+                            <td class="p-4 text-amber-950 font-medium"><strong>Fixed 10% Protection:</strong> Locked at a set 10% yield on your original investment capital base before others are considered.</td>
                         </tr>
-                        <tr class="hover:bg-amber-50/30 transition">
-                            <td class="p-4 font-bold text-stone-900 bg-stone-50/40">🛡️ Winding Up Priority</td>
+                        <tr class="hover:bg-amber-50/40 transition">
+                            <td class="p-4 font-bold text-stone-900 bg-stone-50">🛡️ Winding Up Priority</td>
                             <td class="p-4"><strong>Paid Last (Residual Claim):</strong> High risk framework. Holds lowest rank; claims settled only after all debt and preference pools are fully cleared.</td>
-                            <td class="p-4 text-amber-900 font-medium"><strong>Paid First (Senior Equity Priority):</strong> Protected rank. Receives capital asset cash settlements first, ahead of ordinary shares.</td>
+                            <td class="p-4 text-amber-950 font-medium"><strong>Paid First (Senior Equity Priority):</strong> Protected rank. Receives capital asset cash settlements first, ahead of ordinary shares.</td>
                         </tr>
-                        <tr class="hover:bg-amber-50/30 transition">
-                            <td class="p-4 font-bold text-stone-900 bg-stone-50/40">🎯 Ideal Investor Profile</td>
+                        <tr class="hover:bg-amber-50/40 transition">
+                            <td class="p-4 font-bold text-stone-900 bg-stone-50">🎯 Ideal Investor Profile</td>
                             <td class="p-4">Growth-seeking risk takers looking for massive upside potential and company voting control.</td>
-                            <td class="p-4 text-amber-900 font-medium">Conservative income investors looking for fixed, safe yields and strong downside asset protection.</td>
+                            <td class="p-4 text-amber-950 font-medium">Conservative income investors looking for fixed, safe yields and strong downside asset protection.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Simplified Concept Cards Container -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-                <div class="border border-stone-200 p-4 rounded-lg bg-stone-50/50">
+            <!-- Concept Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                <div class="border border-[#e5d4bc] p-4 rounded-xl bg-[#f8f2e6]">
                     <h4 class="font-bold text-xs text-stone-900 uppercase tracking-wider flex items-center gap-1 mb-1">
                         <span>❓</span> What is a Dividend?
                     </h4>
@@ -273,7 +333,7 @@
                         A dividend is simply a slice of the bakery's net profits paid back out to the owners as a thank-you reward for investing capital.
                     </p>
                 </div>
-                <div class="border border-stone-200 p-4 rounded-lg bg-stone-50/50">
+                <div class="border border-[#e5d4bc] p-4 rounded-xl bg-[#f8f2e6]">
                     <h4 class="font-bold text-xs text-stone-900 uppercase tracking-wider flex items-center gap-1 mb-1">
                         <span>❓</span> What does Winding Up Mean?
                     </h4>
@@ -304,8 +364,8 @@
         const ownershipDisplay = document.getElementById('ownershipDisplay');
         const assetShare = document.getElementById('assetShare');
         const liabilityShare = document.getElementById('liabilityShare');
-        const buildingFill = document.getElementById('buildingFill');
-        const buildingLabel = document.getElementById('buildingLabel');
+        const coffeeFill = document.getElementById('coffeeFill');
+        const coffeeLabel = document.getElementById('coffeeLabel');
         const dividendValueDisplay = document.getElementById('dividendValueDisplay');
         const dividendFormula = document.getElementById('dividendFormula');
 
@@ -334,11 +394,11 @@
         document.querySelectorAll('input[name="shareType"]').forEach(radio => {
             radio.addEventListener('change', () => {
                 if(radio.value === 'ordinary') {
-                    radOrdinary.className = "border-2 border-blue-600 bg-blue-50/40 p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-blue-50/60";
-                    radPreference.className = "border-2 border-amber-500/20 bg-white p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-amber-50/30";
+                    radOrdinary.className = "border-2 border-blue-600 bg-blue-50/50 p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-blue-50";
+                    radPreference.className = "border-2 border-amber-500/20 bg-white p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-amber-50/50";
                 } else {
-                    radPreference.className = "border-2 border-amber-500 bg-amber-50/40 p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-amber-50/70";
-                    radOrdinary.className = "border-2 border-blue-600/20 bg-white p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-blue-50/30";
+                    radPreference.className = "border-2 border-amber-500 bg-amber-50/50 p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-amber-50";
+                    radOrdinary.className = "border-2 border-blue-600/20 bg-white p-4 rounded-xl flex items-center justify-between cursor-pointer transition shadow-sm hover:bg-blue-50/50";
                 }
             });
         });
@@ -368,8 +428,10 @@
             assetShare.textContent = userAssetShare.toLocaleString('en-IN') + ' Rs';
             liabilityShare.textContent = userLiabilityShare.toLocaleString('en-IN') + ' Rs';
 
-            buildingFill.style.height = ownershipPercentage + '%';
-            buildingLabel.textContent = `${ownershipPercentage.toFixed(1)}% Owned`;
+            // High-Contrast Fill Calculation: ensures even 1 share (0.1%) gives a visible liquid baseline
+            const visualFillPercentage = userShares > 0 ? Math.max(ownershipPercentage, 3) : 0;
+            coffeeFill.style.height = visualFillPercentage + '%';
+            coffeeLabel.textContent = `${ownershipPercentage.toFixed(1)}% Owned`;
 
             certShares.textContent = userShares.toLocaleString('en-IN');
 
